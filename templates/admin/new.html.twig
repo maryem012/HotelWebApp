@@ -1,0 +1,26 @@
+{% extends '@EasyAdmin/default/new.html.twig' %}
+
+{% block body_javascript %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Event listeners for changes in room and dates
+            document.getElementById('reservation_room').addEventListener('change', calculateTotalPrice);
+            document.getElementById('reservation_checkInDate_date_year_month_day').addEventListener('change', calculateTotalPrice);
+            document.getElementById('reservation_checkOutDate_date_year_month_day').addEventListener('change', calculateTotalPrice);
+
+            // Function to calculate total price
+            function calculateTotalPrice() {
+                const roomPrice = parseFloat(document.getElementById('reservation_room').value);
+                const checkInDate = new Date(document.getElementById('reservation_checkInDate_date_year_month_day').value);
+                const checkOutDate = new Date(document.getElementById('reservation_checkOutDate_date_year_month_day').value);
+
+                // Perform calculation based on room price, check-in, and check-out dates
+                const numberOfDays = (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24);
+                const totalPrice = roomPrice * numberOfDays;
+
+                // Display the calculated total price
+                document.getElementById('reservation_totalPrice').value = totalPrice.toFixed(2);
+            }
+        });
+    </script>
+{% endblock %}
