@@ -10,25 +10,39 @@
         {{ parent() }}
     {% endblock %}
     <!-- SLIDER -->
+    <style>.box-img img {
+            width: 100%; /* Ensure the image takes the full width of its container */
+            height: 200px; /* Define a fixed height for consistency */
+            object-fit: cover; /* Maintain aspect ratio while covering the entire container */
+            .gallery-img {
+                width: 100%;
+                height: 200px; /* Set the desired height */
+                object-fit: cover; /* Maintain aspect ratio and cover container */
+                border: 1px solid #ccc; /* Optional: Add a border for better appearance */
+            }
+            .carousel-image {
+                height: 300px; /* Set the desired height */
+                width: auto; /* Adjust width accordingly */
+                object-fit: cover; /* Maintain image aspect ratio */
+        }</style>
     <section class="section-slider height-v">
+
         <div id="index12" class="owl-carousel  owl-theme">
+            {% for hotel in hotels %}
+
+            {% for image in hotel.getHotelImages() %}
+
             <div class="item">
-                <img alt="Third slide" src="{{ asset('assets/images/Home-3/Slider-v3.jpg')}}" class="img-responsive">
+                <img src="{{ asset('uploads/hotel/' ~ image.hotelImagePath)}}" class="img-responsive" alt="Hotel Image">
                 <div class="carousel-caption">
-                    <h1 class="v2">Join Festivals And Events</h1>
                     <p class="p-v2 v3"> <span class="line-t"></span>Enjoy and explore <span class="line-b"></span></p>
                 </div>
             </div>
-            <div class="item">
-                <img alt="Third slide" src="{{ asset('assets/images/Home-4/slider-1.jpg')}}" class="img-responsive">
-                <div class="container">
-                    <div class="carousel-caption ">
-                        <h1 class="v2">Unique Experience</h1>
-                        <p class="p-v2 v3"> <span class="line-t"></span>Enjoy With US <span class="line-b"></span></p>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
+            {% endfor %}
+
         </div>
+
         <div class="check-avail check-avail-v3">
             <div class="container">
                 <div class="arrival date-title ">
@@ -97,220 +111,36 @@
         <div class="container">
             <h2 class="title-room">Our Rooms</h2>
             <div class="outline"></div>
-            <p class="rooms-p">When you host a party or family reunion, the special celebrations let you strengh then bonds with</p>
+            <p class="rooms-p">When you host a party or family reunion, the special celebrations let you strengthen bonds.</p>
             <div class="wrap-rooms">
                 <div class="row">
                     <div id="rooms" class="owl-carousel owl-theme">
-                        <div class="item ">
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset(' asset/images/Home-1/our-1.jpg')}}" class="img-responsive" alt="PLuxury Room" title="Luxury Room">
+                        {% for room in rooms|batch(3) %}
+                            <div class="item">
+                                {% for singleRoom in room %}
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                        <div class="wrap-box">
+                                            <div class="box-img">
+                                                {% for image in singleRoom.getImages() %}
+                                                    <img src="{{ asset('uploads/rooms/' ~ image.getImageName()) }}" alt="Room Image">
+                                                {% endfor %}
+                                            </div>
+                                            <div class="rooms-content">
+                                                <h4 class="sky-h4">{{ singleRoom.getRoomType() }}</h4>
+                                                <p class="price">{{ singleRoom.getPrice() }} / Per Night</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Luxury Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-2.jpg')}}" class="img-responsive" alt="Double Room" title="Double Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Double Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-3.jpg')}}" class="img-responsive" alt="Family Room" title="Family Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Family Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-4.jpg')}}" class="img-responsive" alt="Deluxe Room" title="Deluxe Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Deluxe Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-5.jpg')}}" class="img-responsive" alt="Single Room" title="Single Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Single Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class=" col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-6.jpg')}}" class="img-responsive" alt="Presidential Room" title="Presidential Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Presidential Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item ">
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-1.jpg')}}" class="img-responsive" alt="PLuxury Room" title="Luxury Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Luxury Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-2.jpg')}}" class="img-responsive" alt="Double Room" title="Double Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Double Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-3.jpg')}}" class="img-responsive" alt="Family Room" title="Family Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Family Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-4.jpg')}}" class="img-responsive" alt="Deluxe Room" title="Deluxe Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Deluxe Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-5.jpg')}}" class="img-responsive" alt="Single Room" title="Single Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Single Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class=" col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-6.jpg')}}" class="img-responsive" alt="Presidential Room" title="Presidential Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Presidential Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item ">
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-1.jpg')}}" class="img-responsive" alt="PLuxury Room" title="Luxury Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Luxury Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-2.jpg')}}" class="img-responsive" alt="Double Room" title="Double Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Double Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-3.jpg')}}" class="img-responsive" alt="Family Room" title="Family Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Family Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-4.jpg')}}" class="img-responsive" alt="Deluxe Room" title="Deluxe Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Deluxe Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-5.jpg')}}" class="img-responsive" alt="Single Room" title="Single Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Single Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class=" col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
-                                <div class="wrap-box">
-                                    <div class="box-img">
-                                        <img src="{{ asset('assets/images/Home-1/our-6.jpg')}}" class="img-responsive" alt="Presidential Room" title="Presidential Room">
-                                    </div>
-                                    <div class="rooms-content">
-                                        <h4 class="sky-h4">Presidential Room</h4>
-                                        <p class="price">$320 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
         <!-- /container -->
     </section>
+
     <!-- END / ROOMS -->
 
     <!-- ABOUT-US-->
@@ -321,24 +151,26 @@
                     <div class="about-centent">
                         <h2 class="about-title">About Us</h2>
                         <div class="line"></div>
-                        <p class="about-p">Contrary to popular belief, Lorem isn’t simply random text. It has roots in a of classical Latin literature from 45 BC, making it over 2000 years old. Avalon’s leading hotels with gracious island hospitality, thoughtful amenities and distinctive</p>
-                        <p class="about-p1">Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage ...</p>
+                        {% for hotel in hotels %}
+                        <p class="about-p">{{ hotel.description }}</p>
                         <a href=" " class="read-more">READ MORE </a>
+                        {% endfor %}
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 ">
+                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7">
                     <div class="about-img">
                         <div class="img-1">
-                            <img src="{{ asset('assets/images/Home-1/about-3.jpg')}}" class="img-responsive" alt="Image">
-                            <div class="img-2">
-                                <img src="{{ asset('assets/images/Home-1/about-1.jpg')}}" class="img-responsive" alt="Image">
-                            </div>
-                            <div class="img-3">
-                                <img src="{{ asset('assets/images/Home-1/about-2.jpg')}}" class="img-responsive" alt="Image">
-                            </div>
+                                {% for hotel in hotels %}
+                                    {% set hotelImages = hotel.hotelImages|slice(1, 1) %}
+                                    {% for key, image in hotelImages %}
+                                            <img src="{{ asset('uploads/hotel/' ~ image.hotelImagePath) }}" class="img-responsive" alt="Image" style="height: 400px">
+                                    {% endfor %}
+                                {% endfor %}
+
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -451,102 +283,8 @@
     </section>
     <!-- END / TESTIMONOALS -->
 
-    <!--OUR-EVENTS-->
-    <section class="events">
-        <div class="container">
-            <h2 class="events-title">Our Events</h2>
-            <div class="line"></div>
-            <div id="events-v2" class="owl-carousel owl-theme">
-                <div class="item ">
-                    <div class="events-item">
-                        <div class="events-img"><img src="{{ asset('assets/images/Home-1/Our-Events-1.jpg')}}" class="img-responsive" alt="Image"></div>
-                        <div class="events-content">
-                            <a href="" title="">
-                                <p class="sky-p">EVENTS</p>
-                                <h3 class="sky-h3">Wedding Day</h3>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="events-item">
-                        <div class="events-img"><img src="{{ asset('assets/images/Home-1/Our-Events-2.jpg')}}" class="img-responsive" alt="Image"></div>
-                        <div class="events-content">
-                            <a href=" " title="">
-                                <p class="sky-p">EVENTS</p>
-                                <h3 class="sky-h3">Golf Cup 2017</h3>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="events-item">
-                        <div class="events-img"><img src="{{ asset('assets/images/Home-1/Our-Events-3.jpg')}}" class="img-responsive" alt="Image"></div>
-                        <div class="events-content">
-                            <a href=" " title="">
-                                <p class="sky-p">EVENTS</p>
-                                <h3 class="sky-h3"> Beach Sports</h3>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- END / OUR EVENTS -->
 
-    <!--OUR-NEWS-->
-    <section class="news">
-        <div class="container">
-            <h2 class="new-title">News</h2>
-            <div class="line"></div>
-            <div class="row">
-                <div class="news-content">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <div class="substance">
-                            <div class="date">
-                                <div class="day">25</div>
-                                <div class="year"> AUGUST
-                                    <br>2017</div>
-                            </div>
-                            <div class="text">
-                                <a href=" ">Update menu food in Skyline Hotel</a>
-                            </div>
-                            <a href=" " class="read-more">Read More</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <div class="substance">
-                            <div class="date">
-                                <div class="day">22</div>
-                                <div class="year"> AUGUST
-                                    <br>2017</div>
-                            </div>
-                            <div class="text">
-                                <a href="">Las Maquinas on Tragamonedas</a>
-                            </div>
-                            <a href=" " class="read-more">Read More </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <div class="substance">
-                            <div class="date">
-                                <div class="day">06</div>
-                                <div class="year"> AUGUST
-                                    <br>2017</div>
-                            </div>
-                            <div class="text">
-                                <a href="">Mother Earth Hosts Our Travels</a>
-                            </div>
-                            <a href="" class="read-more">Read More </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END / OUR NEWS -->
 
     <!-- OUR-GALLERY-->
     <section class="gallery-our">
@@ -564,105 +302,32 @@
                 <div class="tab-content">
                     <div id="Hotel" class="tab-pane fade in active">
                         <div class="product ">
+                            {% for hotel in hotels %}
+
                             <div class="row">
-                                <div class="gallery_product col-lg-3 col-md-3 col-sm-6 col-xs-6 ">
-                                    <div class="wrap-box">
-                                        <div class="box-img">
-                                            <img src="{{ asset('assets/images/Home-1/gallery-1.jpg')}}" class="img-responsive" alt="Product" title="images products">
-                                        </div>
-                                        <div class="gallery-box-main " title>
-                                            <div class="gallery-icon">
-                                                <a class="lightbox " href="{{ asset('assets/images/images/Home-1/gallery-1-1.jpg')}}" data-littlelightbox-group="gallery" title="Luxury Room view all"><i class="ion-ios-plus-empty" aria-hidden="true" ></i> </a>
+                                {% for image in hotel.getHotelImages() %}
+                                    {% if loop.index <= 9 %} {# Limit to the first nine images #}
+                                        <div class="gallery_product col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                            <div class="wrap-box">
+                                                <div class="box-img" style="box-sizing: content-box">
+                                                    <img src="{{ asset('uploads/hotel/' ~ image.hotelImagePath)}}" class="img-responsive gallery-img" alt="Product" title="images products" style="width: 100%; height: 200px; object-fit: cover; border: 1px solid #ccc;">
+                                                </div>
+                                                <div class="gallery-box-main">
+                                                    <div class="gallery-icon">
+                                                        <a class="lightbox" href="{{ asset('uploads/hotel/' ~ image.hotelImagePath)}}" data-littlelightbox-group="gallery" title="Your Image Title"><i class="ion-ios-plus-empty" aria-hidden="true"></i></a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="gallery_product col-lg-3 col-md-3 col-sm-6 col-xs-6 ">
-                                    <div class="wrap-box">
-                                        <div class="box-img">
-                                            <img src="{{ asset('assets/images/Home-1/gallery-2.jpg" class="img-responsive')}}" alt="Product" title="images products">
-                                        </div>
-                                        <div class="gallery-box-main">
-                                            <div class="gallery-icon">
-                                                <a class="lightbox " href="{{ asset('assets/images/images/Home-1/gallery-2-2.jpg')}}" data-littlelightbox-group="gallery" title="HIHI"><i class="ion-ios-plus-empty" aria-hidden="true" ></i> </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="gallery_product col-lg-3 col-md-3 col-sm-6 col-xs-6 ">
-                                    <div class="wrap-box">
-                                        <div class="box-img">
-                                            <img src="{{ asset('assets/images/Home-1/gallery-3.jpg')}}" class="img-responsive" alt="Product" title="images products">
-                                        </div>
-                                        <div class="gallery-box-main">
-                                            <div class="gallery-icon">
-                                                <a class="lightbox " href="{{ asset('assets/images/Home-1/gallery-3-3.jpg')}}" data-littlelightbox-group="gallery" title="Flying is life"><i class="ion-ios-plus-empty" aria-hidden="true" ></i> </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="gallery_product col-lg-3 col-md-3 col-sm-6 col-xs-6 ">
-                                    <div class="wrap-box">
-                                        <div class="box-img">
-                                            <img src="{{ asset('assets/images/Home-1/gallery-4.jpg')}}" class="img-responsive" alt="Product" title="images products">
-                                        </div>
-                                        <div class="gallery-box-main">
-                                            <div class="gallery-icon">
-                                                <a class="lightbox " href="{{ asset('assets/images/Home-1/gallery-4-4.jpg')}}" data-littlelightbox-group="gallery" title="Flying is life"><i class="ion-ios-plus-empty" aria-hidden="true" ></i> </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="gallery_product col-lg-3 col-md-3 col-sm-6 col-xs-6 ">
-                                    <div class="wrap-box">
-                                        <div class="box-img">
-                                            <img src="{{ asset('assets/images/Home-1/gallery-5.jpg')}}" class="img-responsive" alt="Product" title="images products">
-                                        </div>
-                                        <div class="gallery-box-main">
-                                            <div class="gallery-icon">
-                                                <a class="lightbox " href="{{ asset('assets/images/Home-1/gallery-5-5.jpg')}}" data-littlelightbox-group="gallery" title="Flying is life"><i class="ion-ios-plus-empty" aria-hidden="true" ></i> </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="gallery_product col-lg-3 col-md-3 col-sm-6 col-xs-6 ">
-                                    <div class="wrap-box">
-                                        <div class="box-img">
-                                            <img src="{{ asset('assets/images/Home-1/gallery-6.jpg')}}" class="img-responsive" alt="Product" title="images products">
-                                        </div>
-                                        <div class="gallery-box-main">
-                                            <div class="gallery-icon">
-                                                <a class="lightbox " href=""{{ asset('assets/images/Home-1/gallery-6-6.jpg')}}" data-littlelightbox-group="gallery" title="Flying is life"><i class="ion-ios-plus-empty" aria-hidden="true" ></i> </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="gallery_product col-lg-3 col-md-3 col-sm-6 col-xs-6 ">
-                                    <div class="wrap-box">
-                                        <div class="box-img">
-                                            <img src="{{ asset('assets/images/Home-1/gallery-7.jpg')}}" class="img-responsive" alt="Product" title="images products">
-                                        </div>
-                                        <div class="gallery-box-main">
-                                            <div class="gallery-icon">
-                                                <a class="lightbox " href="{{ asset('assets/images/Home-1/gallery-7-7.jpg')}}" data-littlelightbox-group="gallery" title="Flying is life"><i class="ion-ios-plus-empty" aria-hidden="true" ></i> </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="gallery_product col-lg-3 col-md-3 col-sm-6 col-xs-6 ">
-                                    <div class="wrap-box">
-                                        <div class="box-img">
-                                            <img src="{{ asset('assets/images/Home-1/gallery-8.jpg" class="img-responsive')}}" alt="Product" title="images products">
-                                        </div>
-                                        <div class="gallery-box-main">
-                                            <div class="gallery-icon">
-                                                <a class="lightbox " href=""{{ asset('assets/images/Home-1/gallery-8-8.jpg')}}" data-littlelightbox-group="gallery" title="Flying is life"><i class="ion-ios-plus-empty" aria-hidden="true" ></i> </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
+
+
+
                         </div>
+                        {% endfor %}
+
                     </div>
                     <div id="menu1" class="tab-pane fade">
                         <div class="product ">

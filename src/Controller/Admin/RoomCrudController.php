@@ -36,7 +36,10 @@ class RoomCrudController extends AbstractCrudController
                 'Single Room' => RoomTypes::SINGLE,
                 'Double Room' => RoomTypes::DOUBLE,
                 'Deluxe Room' => RoomTypes::DELUXE,
-                // Add more choices here...
+                ' Premium Suite' => RoomTypes::SUITE,
+                'Premium Room' => RoomTypes::PREMIUM,
+                'Luxury Room' => RoomTypes::LUXURY,
+
             ]),
             MoneyField::new('price')->setCurrency('USD'), // Change 'USD' to your desired currency code
             BooleanField::new('availability'),
