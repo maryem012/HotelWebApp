@@ -33,10 +33,13 @@
                 <!--HEADER-TOP-->
                 <div class="header-top no-border">
                     <div class="header-top-left">
+                        {% for hotel in hotels %}
+
                         <span><i class="ion-android-cloud-outline"></i>18 °C</span>
-                        <span><i class="ion-ios-location-outline"></i> 121 King Str, Melbourne Victoria</span>
-                        <span><i class="fa fa-phone" aria-hidden="true"></i> 1-548-854-8898</span>
-                    </div>
+
+                        <span><i class="ion-ios-location-outline"></i> {{ hotel.getAddress() }}</span>
+                        <span><i class="fa fa-phone" aria-hidden="true"></i>{{ hotel.getContactInfo }}</span>
+                   {% endfor%} </div>
                     <div class="header-top-right">
                         <ul class="list-inline">
                             <li><a href="/login" title="Login">LOGIN</a></li>
