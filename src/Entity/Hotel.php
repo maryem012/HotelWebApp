@@ -27,7 +27,8 @@ class Hotel
 
     #[ORM\Column(length: 255)]
     private ?string $contact_info = null;
-
+    #[ORM\OneToMany(mappedBy: 'hotel', targetEntity: HotelImages::class, cascade: ['persist', 'remove'])]
+    private Collection $HotelImages;
     #[ORM\OneToMany(mappedBy: 'hotel', targetEntity: Room::class)]
     private Collection $rooms;
 
@@ -38,6 +39,8 @@ class Hotel
     public function __construct()
     {
         $this->rooms = new ArrayCollection();
+        $this->HotelImages = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -132,6 +135,33 @@ class Hotel
     {
         $this->staff = $staff;
 
+        return $this;
+    }
+
+
+    // Image related methods
+    public function getHotelImages(): Collection
+    {
+        return $this->HotelImages;
+    }
+
+    public function addHotelImage(HotelImages $image): self
+    {
+        if (!$this->HotelImages->contains($image)) {
+            $this->HotelImages[] = $image;
+            $image->setHotel($this);
+        }
+        return $this;
+    }
+
+    public function removeImage(HotelImages $image): self
+    {
+        if ($this->HotelImages->contains($image)) {
+            $this->HotelImages->removeElement($image);
+            if ($image->getHotel() === $this) {
+                $image->setHotel(null);
+            }
+        }
         return $this;
     }
 }

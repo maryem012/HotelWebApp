@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Guest;
 use App\Entity\Hotel;
+use App\Entity\HotelImages;
 use App\Entity\Payment;
 use App\Entity\Reservation;
 use App\Entity\Room;
@@ -55,6 +56,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Guests Management', 'fa fa-question-circle', Guest::class);
         yield MenuItem::linkToCrud('payment Management', 'fa fa-question-circle', Payment::class);
         yield MenuItem::linkToCrud('room images ', 'fa fa-question-circle', roomImages::class);
+        yield MenuItem::linkToCrud('hotel images ', 'fa fa-question-circle', HotelImages::class);
 
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }

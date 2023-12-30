@@ -9,3 +9,8 @@ vich_uploader:
       # The base path for your uploaded files as accessed from the web
       upload_destination: '%kernel.project_dir%/public/uploads/rooms'  # Where files should be uploaded on your server
       namer: Vich\UploaderBundle\Naming\SmartUniqueNamer  # Optionally, specify a namer service
+
+    hotel_image:  # New mapping for hotel images
+      uri_prefix: '%hotel_directory%'
+      upload_destination: '%kernel.project_dir%/public/uploads/hotel'
+      namer: Vich\UploaderBundle\Naming\SmartUniqueNamer  # Optionally, specify a namer service
